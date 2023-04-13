@@ -9,6 +9,7 @@ const server = process.env.APP_ENV === "sandbox" ? { hmr: { clientPort: 443 } } 
 // https://vitejs.dev/config/
 export default defineConfig({
   server: server,
+  base: 'https://cdn.jsdelivr.net/gh/fiodor8/react-three-vite/dist/',
   resolve: {
     alias: {
       "@src": resolve(__dirname, "./src"),
