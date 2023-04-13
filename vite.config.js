@@ -1,5 +1,6 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 import react from "@vitejs/plugin-react";
 
 // This is required for Vite to work correctly with CodeSandbox
@@ -13,5 +14,16 @@ export default defineConfig({
       "@src": resolve(__dirname, "./src"),
     },
   },
-  plugins: [react()],
+  plugins: [
+    react(),
+    cssInjectedByJsPlugin(),
+  ],
+  build: {
+    cssCodeSplit: false,
+    rollupOptions: {
+      input: {
+        app: './src/App.jsx',
+      },
+    },
+  },
 });
