@@ -23,7 +23,7 @@ export default defineConfig({
     cssCodeSplit: false,
     rollupOptions: {
       input: {
-        app: './src/App.jsx',
+        app: './src/index.jsx',
       },
     },
   },
