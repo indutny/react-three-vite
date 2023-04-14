@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+.full-height {
+  height: 100vh
+}
+
 html,
 body,
 #root {
@@ -9,14 +13,14 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #272727;
+  background-color: black;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 #root {
@@ -24,9 +28,9 @@ body,
 }
 
 body {
-  position: fixed;
-  overflow: hidden;
-  overscroll-behavior-y: none;
+  /*position: fixed;*/
+  /*overflow: hidden;*/
+  /* overscroll-behavior-y: none;*/
   font-family: helvetica neue, helvetica, arial, sans-serif;
   color: black;
   -webkit-font-smoothing: antialiased;
