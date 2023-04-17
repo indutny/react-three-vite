@@ -1,24 +1,63 @@
 import * as THREE from 'three'
-import { Vector3 } from 'three'
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect, forwardRef, Suspense } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { useGLTF, ScrollControls, SpotLight, PerformanceMonitor, Environment, Lightformer, Float, useDepthBuffer } from '@react-three/drei'
+import { EffectComposer, GodRays, DepthOfField, Bloom, Noise, Vignette } from '@react-three/postprocessing'
+import {  
+          useGLTF, 
+          ScrollControls,
+          SpotLight, 
+          PerformanceMonitor, 
+          Environment, 
+          Lightformer, 
+          Float, 
+          useDepthBuffer,
+          Circle,
+          Sphere
+        } 
+        from '@react-three/drei'
+
 import { LayerMaterial, Color, Depth } from 'lamina'
 
 import gsap, { Power3 } from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { WorkingObject } from './components/WorkingObject'
+
 gsap.registerPlugin(ScrollTrigger)
 
+//<Effects/>
 export default function App() {
   return (
     <Canvas shadows camera={{ position: [0, 0, 15], fov: 30 }}>
+      
       {/* Renders contents "live" into a HDRI environment (scene.environment). */}
       <Environment /*frames={degraded ? 1 : Infinity}*/ resolution={256} background blur={1}>
         <Lightformers />
       </Environment>
       <Scene />
     </Canvas>
+  )
+}
+
+const Sun = forwardRef(function Sun(props, forwardRef) {
+  return (
+    <Circle args={[1, 24]} ref={forwardRef} position={[0, 3, -16]} {...props}>
+      <meshBasicMaterial color='white' />
+    </Circle>
+  )
+})
+
+function Effects() {
+  const [sunRef, setSunRef] = useState();
+  
+  return (
+    <>
+    <Sun ref={setSunRef} />
+    {sunRef && (
+      <EffectComposer>
+        <GodRays sun={sunRef} />
+      </EffectComposer>
+    )}
+    </>
   )
 }
  
