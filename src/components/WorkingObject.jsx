@@ -42,16 +42,30 @@ const bottleMaterial = new THREE.MeshPhysicalMaterial({
         tl.current = gsap.timeline({ paused: true });
       }
       tl.current.clear();
-      tl.current.to(ref.current.rotation, { duration: 3, x: 0, y: Math.PI, z: 0 }, 0);
-      tl.current.to(ref.current.position, { duration: 3, x: screenWidth / 4, y: 0, z: 0 }, 0);
+      tl.current.fromTo(ref.current.rotation,
+        { x: 0, y: 0, z: 0, },
+        { duration: 3, x: 0, y: Math.PI, z: 0 },
+        0);
+      tl.current.fromTo(ref.current.position,
+        { x: -screenWidth / 4, y: 0, z: 0 },
+        { duration: 3, x: screenWidth / 4, y: 0, z: 0 },
+        0);
       //tl.current.seek(scroll.offset * tl.current.duration());
       tl.current.restart();
+      tl.current.pause();
+      tl.current.seek(seekPos);
     }, [screenWidth]);
+
+    const [seekPos, setSeekPos] = useState(0);
   
     useFrame(() => {
-        //console.log(scroll.offset);
-        tl.current.seek(scroll.offset * tl.current.duration());
-      });
+      setSeekPos(scroll.offset * tl.current.duration());
+    });
+
+    useEffect(() => {
+      //console.log(scroll.offset);
+      tl.current.seek(seekPos);
+    }, [seekPos]);
   
     const meshRotation = [0, 0, 0];
     const meshPosition = [-screenWidth / 4, 0, 0];
