@@ -18,7 +18,7 @@ const bottleMaterial = new THREE.MeshPhysicalMaterial({
     const ref = useRef();
     const tl = useRef();
     const [screenWidth, setScreenWidth] = useState(0);
-    const [rotation, setRotation] = useState([0, 0, 0]);
+    //const [rotation, setRotation] = useState([0, 0, 0]);
   
     const { viewport } = useThree();
     const scroll = useScroll();
@@ -44,12 +44,12 @@ const bottleMaterial = new THREE.MeshPhysicalMaterial({
       tl.current.clear();
       tl.current.to(ref.current.rotation, { duration: 3, x: 0, y: Math.PI, z: 0 }, 0);
       tl.current.to(ref.current.position, { duration: 3, x: screenWidth / 4, y: 0, z: 0 }, 0);
-      tl.current.seek(scroll.offset * tl.current.duration());
+      //tl.current.seek(scroll.offset * tl.current.duration());
       tl.current.restart();
     }, [screenWidth]);
   
     useFrame(() => {
-        //console.log('ref.current.rotation:', ref.current.rotation);
+        //console.log(scroll.offset);
         tl.current.seek(scroll.offset * tl.current.duration());
       });
   
